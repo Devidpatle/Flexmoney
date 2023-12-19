@@ -42,7 +42,7 @@ function Payment() {
         const paymentResult = await simulatePayment();
 
         // Send form data and payment result to the backend
-        const response = await axios.post('http://localhost:3001/api/enroll', {
+        const response = await axios.post('https://yoga-backend--devidpatledp.repl.co/api/enroll', {
           ...TotalData,
           paymentResult,
         });

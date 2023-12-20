@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const paymentSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   fullName: String,
   email: String,
   address: String,
@@ -12,6 +13,7 @@ const paymentSchema = new mongoose.Schema({
   expMonth: String,
   expYear: Number,
   cvv: Number,
+  paymentDetails: { type: Object, default: {} },
 });
 
 const Payment = mongoose.model('Payment', paymentSchema);

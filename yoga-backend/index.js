@@ -16,26 +16,30 @@ const mongoURI = 'mongodb+srv://Devidpatle:12345@cluster0.cgnrl.mongodb.net/flex
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.post('/api/enroll', async (req, res) => {
-  const userData = req.body;
+
+  const userData = req.body[0];
+  const paymentData = req.body[1];
 
   if (userData.age < 18 || userData.age > 65) {
     return res.status(400).json({ success: false, message: 'Invalid age. Must be between 18 and 65.' });
   }
 
   try {
-    const newUser = new User(userData);
+    const newUser = new User({
+      name: userData.name,
+      age: userData.age,
+      selectedTime: userData.selectedTime,
+      enrollmentDetails: userData,
+    });
     await newUser.save();
 
-    const paymentResult = await completePayment(newUser);
-
-    // Save payment details in a separate collection
-    const payment = new Payment(paymentResult.paymentDetails);
+    const payment = new Payment({
+      ...paymentData,
+      paymentDetails: paymentData.paymentDetails,
+    });
     await payment.save();
-
-    // Update user record with payment details
-    await User.updateOne({ _id: newUser._id }, { paymentDetails: paymentResult.paymentDetails });
-
-    res.json({ success: true, message: 'Enrollment successful.', paymentResult });
+    
+    res.json({ success: true, message: 'Enrollment successful.'});
   } catch (error) {
     console.error('Error saving user to database or processing payment:', error);
     res.status(500).json({ success: false, message: 'Internal server error.' });

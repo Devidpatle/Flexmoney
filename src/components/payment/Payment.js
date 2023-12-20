@@ -33,12 +33,9 @@ function Payment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
     try {
       if (enrollmentStatus.message === "Payment Methods") {
-        // console.log(TotalData)
-        // Simulate payment process (you may replace this with actual payment integration)
+
         const paymentResult = await simulatePayment();
 
         // Send form data and payment result to the backend
@@ -46,13 +43,6 @@ function Payment() {
           ...TotalData,
           paymentResult,
         });
-
-
-        // updateEnrollmentStatus({
-        //   success: paymentResult.success,
-        //   message: paymentResult.message,
-        //   payload: formData
-        // });
 
 
         // Check if enrollment and payment were successful
@@ -76,6 +66,7 @@ function Payment() {
     return {
       success: true,
       message: 'Payment successful',
+      paymentDetails: formData,
     };
   };
 

@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   age: Number,
   selectedTime: String,
-  paymentDetails: { type: Object, default: {} },
+  enrollmentDetails: { type: Object, default: {} },
 });
 
 const User = mongoose.model('User', userSchema);

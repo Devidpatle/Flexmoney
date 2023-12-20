@@ -28,8 +28,8 @@ const Form = () => {
       updateEnrollmentStatus({
         success: false,
         message: 'Payment Methods',
-        payload:formData,
-        paymentStatus:false
+        payload: formData,
+        paymentStatus:false,
       });
 
       console.log(enrollmentStatus)

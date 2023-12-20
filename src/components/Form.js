@@ -17,6 +17,11 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (formData.age < 18 || formData.age > 65) {
+      window.alert('Invalid age. Must be between 18 and 65.');
+      return;
+    }
+
     try {
 
 
